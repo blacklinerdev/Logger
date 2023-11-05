@@ -11,6 +11,11 @@ public class Logger {
     private LogLevel fileLevel;
     private static Logger logger;
 
+    /**sets the path of the logfile and the minimum severity to write to the logfile
+     * @param path location of logfile
+     * @param level minimum severity of messages to be written to the logfile
+     * @return true, only if logfile could be set and is ready. If return false, path and level are reset to null
+     */
     public static boolean setFile(String path, LogLevel level){
         Logger logger = getInstance();
         logger.logfile = new File(path);
@@ -34,6 +39,12 @@ public class Logger {
         return logger;
     }
 
+    /** logs a message with the given severity to outputstream.
+     * If logfile and fileLevel was set before with @see setFile(),log message is also logged to the logfile only if
+     * severity is equal or higher than the loglevel for the log file
+     * @param level sets the severity of message
+     * @param message sets the string message to tog
+     */
     public static synchronized void log(LogLevel level, String message){
         Logger logger = getInstance();
         PrintStream os = System.out;
@@ -47,7 +58,7 @@ public class Logger {
     }
 
     private String getLogStr(String message){
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy.MM.dd-HH:mm:ss");
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss");
         return LocalDateTime.now().format(dtf) + ": " + message;
     }
 

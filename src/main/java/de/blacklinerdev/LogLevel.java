@@ -10,6 +10,9 @@ public enum LogLevel {
 
     private int level;
 
+    /**gets integer representation of LogLevel
+     * @return integer representation
+     */
     public int getValue(){
         return level;
     }
